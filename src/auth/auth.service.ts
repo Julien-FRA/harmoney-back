@@ -2,7 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { UserDto } from '../users/dto/user.dto';
+import { CreateUserDto, LoginUserDto, UserDto } from '../users/dto/user.dto';
 import { User } from '@prisma/client';
 import { JwtPayload } from 'src/types/jwt.type';
 
@@ -13,17 +13,20 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async signup(email: string, name: string, password: string) {
-    const existing = await this.usersService.findByEmail(email);
+  async signup(createUserDto: CreateUserDto) {
+    const existing = await this.usersService.findByEmail(createUserDto.email);
     if (existing) throw new UnauthorizedException('Email déja utilisé !');
 
-    const user = await this.usersService.createUser(email, name, password);
+    const user = await this.usersService.createUser(createUserDto);
     return this.generateToken(user);
   }
 
-  async login(email: string, password: string) {
-    const user = await this.usersService.findByEmail(email);
-    if (!user || !(await bcrypt.compare(password, user.password))) {
+  async login(loginUserDto: LoginUserDto) {
+    const user = await this.usersService.findByEmail(loginUserDto.email);
+    if (
+      !user ||
+      !(await bcrypt.compare(loginUserDto.password, user.password))
+    ) {
       throw new UnauthorizedException('Identifiants invalides !');
     }
     return this.generateToken(user);
