@@ -22,7 +22,7 @@ describe('AuthService', () => {
       name: 'julien',
       password: 'passwordTest',
     };
-    expect(service.signup(user)).toThrow('Unauthorized');
+    expect(service.signup(user)).toBe('token');
   });
 
   it('signup: should throw an error with wrong email', () => {

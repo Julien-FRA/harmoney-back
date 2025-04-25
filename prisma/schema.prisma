@@ -8,9 +8,51 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid()) @db.Uuid
   email     String   @unique
   name      String
   password  String
   createdAt DateTime @default(now())
+  households  HouseholdMember[]
+  expenses    Expense[]
+  shares      ExpenseShare[]
+}
+
+model Household {
+  id          String    @id @default(uuid()) @db.Uuid
+  name        String
+  createdAt   DateTime  @default(now())
+  members     HouseholdMember[]
+  expenses    Expense[]
+}
+
+model HouseholdMember {
+  id          String    @id @default(uuid()) @db.Uuid
+  role        String
+  user        User      @relation(fields: [userId], references: [id])
+  userId      String    @db.Uuid
+  household   Household @relation(fields: [householdId], references: [id])
+  householdId String    @db.Uuid
+  @@unique([userId, householdId])
+}
+
+model Expense {
+  id          String         @id @default(uuid()) @db.Uuid
+  title       String
+  amount      Float
+  createdAt   DateTime       @default(now())
+  author      User           @relation(fields: [authorId], references: [id])
+  authorId    String         @db.Uuid          
+  household   Household      @relation(fields: [householdId], references: [id])
+  householdId String         @db.Uuid
+  shares      ExpenseShare[]
+}
+
+model ExpenseShare {
+  id          String   @id @default(uuid()) @db.Uuid
+  expense     Expense  @relation(fields: [expenseId], references: [id])
+  expenseId   String   @db.Uuid
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String   @db.Uuid
+  amount      Float
 }

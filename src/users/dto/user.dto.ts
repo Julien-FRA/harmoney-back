@@ -2,7 +2,7 @@ import { User } from '@prisma/client';
 import { IsEmail, IsString, MaxLength, MinLength } from 'class-validator';
 
 export class UserDto {
-  id: number;
+  id: string;
   email: string;
   name: string;
   createdAt: Date;
