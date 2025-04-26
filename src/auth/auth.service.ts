@@ -1,10 +1,12 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { UsersService } from '../users/users.service';
+import { UsersService } from '../modules/users/services/users.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { CreateUserDto, LoginUserDto, UserDto } from '../users/dto/user.dto';
 import { User } from '@prisma/client';
 import { JwtPayload } from 'src/types/jwt.type';
+import { CreateUserDto } from 'src/modules/users/dto/create-user.dto';
+import { LoginUserDto } from 'src/modules/users/dto/login-user.dto';
+import { User as UserEntity } from 'src/modules/users/entities/users.entity';
 
 @Injectable()
 export class AuthService {
@@ -36,7 +38,7 @@ export class AuthService {
     const payload: JwtPayload = { sub: user.id, email: user.email };
     return {
       access_token: this.jwtService.sign(payload),
-      user: new UserDto(user),
+      user: new UserEntity(user),
     };
   }
 }
