@@ -22,4 +22,9 @@ export class UsersController {
   findById(@Param('id') id: string) {
     return this.usersService.findById(id);
   }
+
+  @Get()
+  findAll() {
+    return this.usersService.findAll();
+  }
 }
