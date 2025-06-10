@@ -10,6 +10,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 import { JwtModule } from '@nestjs/jwt';
 import { HouseholdMembersModule } from './modules/household_members/household_members.module';
+import { ExpensesModule } from './modules/expenses/expenses.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { HouseholdMembersModule } from './modules/household_members/household_me
     UsersModule,
     HouseholdModule,
     HouseholdMembersModule,
+    ExpensesModule,
   ],
   controllers: [AppController],
   providers: [

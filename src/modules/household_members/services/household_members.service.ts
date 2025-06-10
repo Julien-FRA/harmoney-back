@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { HouseholdMembersRepository } from '../repository/household_members.repository';
-import { CreateHouseholdMembersDto } from '../dto/create_household_members.dto';
+import { CreateHouseholdMembersDto } from '../dto/create-household_members.dto';
 import { UsersService } from 'src/modules/users/services/users.service';
 import { HouseholdService } from 'src/modules/household/services/household.service';
 
