@@ -6,6 +6,11 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import { HouseholdModule } from './modules/household/household.module';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
+import { JwtModule } from '@nestjs/jwt';
+import { HouseholdMembersModule } from './modules/household_members/household_members.module';
+import { ExpensesModule } from './modules/expenses/expenses.module';
 
 @Module({
   imports: [
@@ -14,10 +19,19 @@ import { HouseholdModule } from './modules/household/household.module';
     }),
     PrismaModule,
     AuthModule,
+    JwtModule,
     UsersModule,
     HouseholdModule,
+    HouseholdMembersModule,
+    ExpensesModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+  ],
 })
 export class AppModule {}
