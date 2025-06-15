@@ -26,4 +26,10 @@ export class HouseholdMembersRepository {
   async findAll(): Promise<any[]> {
     return this.prisma.householdMember.findMany();
   }
+
+  async findByHouseholdId(householdId: string) {
+    return this.prisma.householdMember.findMany({
+      where: { householdId: householdId },
+    });
+  }
 }

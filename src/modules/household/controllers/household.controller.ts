@@ -15,4 +15,9 @@ export class HouseholdController {
   findById(@Param('id') id: string) {
     return this.householdService.findById(id);
   }
+
+  @Get()
+  findAll() {
+    return this.householdService.findAll();
+  }
 }
