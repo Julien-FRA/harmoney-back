@@ -13,4 +13,8 @@ export class HouseholdService {
   async findById(id: string) {
     return this.householdRepository.findById(id);
   }
+
+  async findAll() {
+    return this.householdRepository.findAll();
+  }
 }

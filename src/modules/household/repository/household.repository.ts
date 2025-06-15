@@ -17,4 +17,8 @@ export class HouseholdRepository {
   async findById(id: string) {
     return this.prisma.household.findUnique({ where: { id } });
   }
+
+  async findAll(): Promise<any[]> {
+    return this.prisma.household.findMany();
+  }
 }

@@ -29,6 +29,14 @@ export class HouseholdMembersService {
     return this.householdMembersRepository.findAll();
   }
 
+  async findByHouseholdId(householdId: string) {
+    if (!householdId) {
+      throw new Error('Household ID is required');
+    }
+
+    return this.householdMembersRepository.findByHouseholdId(householdId);
+  }
+
   private async verifyExistingUserAndHouseHold(
     userId: string,
     householdId: string,

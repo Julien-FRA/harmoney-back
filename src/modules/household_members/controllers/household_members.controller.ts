@@ -26,4 +26,9 @@ export class HouseholdMembersController {
   findAll() {
     return this.householdMembersService.findAll();
   }
+
+  @Post('household-id')
+  findByHouseholdId(@Body('householdId') householdId: string) {
+    return this.householdMembersService.findByHouseholdId(householdId);
+  }
 }
