@@ -11,6 +11,7 @@ import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 import { JwtModule } from '@nestjs/jwt';
 import { HouseholdMembersModule } from './modules/household_members/household_members.module';
 import { ExpensesModule } from './modules/expenses/expenses.module';
+import { ExpensesSharesModule } from './modules/expenses_shares/expenses_shares.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { ExpensesModule } from './modules/expenses/expenses.module';
     HouseholdModule,
     HouseholdMembersModule,
     ExpensesModule,
+    ExpensesSharesModule,
   ],
   controllers: [AppController],
   providers: [
